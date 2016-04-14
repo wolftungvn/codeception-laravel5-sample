@@ -50,6 +50,14 @@
         </apply>
         <property name="lint.done" value="true"/>
     </target>
+    <target name="composer" description="Installing composer dependencies">
+        <exec executable="composer" failonerror="true">
+            <arg value="install" />
+            <arg value="--dev" />
+            <arg value="--prefer-dist" />
+            <arg value="--no-progress" />
+        </exec>
+    </target>
     <target name="phploc" unless="phploc.done" description="Measure project size using PHPLOC and print human readable output. Intended for usage on the command line.">
         <exec executable="${toolsdir}phploc" taskname="phploc">
             <arg value="--count-tests"/>
@@ -148,13 +156,5 @@
     <target name="phpdox" unless="phpdox.done" depends="phploc-ci,phpcs-ci,phpmd-ci" description="Generate project documentation using phpDox">
         <exec executable="${toolsdir}phpdox" dir="${basedir}/build" taskname="phpdox"/>
         <property name="phpdox.done" value="true"/>
-    </target>
-    <target name="composer" description="Installing composer dependencies">
-        <exec executable="composer" failonerror="true">
-            <arg value="install" />
-            <arg value="--dev" />
-            <arg value="--prefer-dist" />
-            <arg value="--no-progress" />
-        </exec>
     </target>
 </project>
