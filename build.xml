@@ -149,4 +149,14 @@
         <exec executable="${toolsdir}phpdox" dir="${basedir}/build" taskname="phpdox"/>
         <property name="phpdox.done" value="true"/>
     </target>
+    <target name="composer" description="Installing composer dependencies">
+        <exec executable="composer" failonerror="true">
+            <arg value="install" />
+            <arg value="--dev" />
+            <arg value="--prefer-dist" />
+            <arg value="--no-progress" />
+
+            <env key="SYMFONY_ENV" value="test"/>
+        </exec>
+    </target>
 </project>
