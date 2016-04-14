@@ -13,11 +13,11 @@ class CustomValidationCest
         ]);
     }
     
-    public function testCustomValidationSuccess(FunctionalTester $I)
-    {
-        $I->amOnPage('validation?postal_code=1234AB&post_id=1');
-        $I->see('Validation success');
-    }
+//    public function testCustomValidationSuccess(FunctionalTester $I)
+//    {
+//        $I->amOnPage('validation?postal_code=1234AB&post_id=1');
+//        $I->see('Validation success');
+//    }
 
     public function testCustomValidationError(FunctionalTester $I)
     {
