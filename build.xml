@@ -7,7 +7,7 @@
 
      <property name="toolsdir" value="${basedir}/vendor/bin/"/>
 
-    <target name="build" depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
+    <target name="build" depends="prepare,composer,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
     <target name="build-parallel" depends="prepare,lint,tools-parallel,phpunit,phpdox" description=""/>
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
@@ -50,9 +50,9 @@
         </apply>
         <property name="lint.done" value="true"/>
     </target>
-    <target name="composer" description="Installing composer dependencies">
+    <target name="composer" description="Updating composer dependencies">
         <exec executable="composer" failonerror="true">
-            <arg value="install" />
+            <arg value="update" />
             <arg value="--dev" />
             <arg value="--prefer-dist" />
             <arg value="--no-progress" />
