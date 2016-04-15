@@ -53,8 +53,6 @@
     <target name="composer" description="Updating composer dependencies">
         <exec executable="composer" failonerror="true">
             <arg value="update" />
-            <arg value="--prefer-dist" />
-            <arg value="--no-progress" />
         </exec>
     </target>
     <target name="phploc" unless="phploc.done" description="Measure project size using PHPLOC and print human readable output. Intended for usage on the command line.">
