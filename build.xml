@@ -20,7 +20,7 @@
     <target name="build-parallel-clean"
             depends="clean,build-common,tools-parallel" />
 
-    <target name="build-common" depends="lint,prepare,storage-permissions,artisan-migrate" />
+    <target name="build-common" depends="lint,prepare,storage-permissions,composer,artisan-migrate" />
 
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
@@ -81,6 +81,7 @@
         <exec executable="php" failonerror="true">
             <arg value="${basedir}/artisan" />
             <arg value="migrate" />
+            <arg value="--force" />
         </exec>
     </target>
 
