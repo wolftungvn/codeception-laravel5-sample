@@ -53,7 +53,6 @@
     <target name="composer" description="Updating composer dependencies">
         <exec executable="composer" failonerror="true">
             <arg value="update" />
-            <arg value="--dev" />
             <arg value="--prefer-dist" />
             <arg value="--no-progress" />
         </exec>
