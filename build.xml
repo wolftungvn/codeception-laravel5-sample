@@ -7,7 +7,7 @@
     <!--
      <property name="toolsdir" value="${basedir}/vendor/bin/"/>
     -->
-    <target name="build" depends="composer,prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
+    <target name="build" depends="composer,dbupdate,prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
     <!--<target name="build-parallel" depends="composer,prepare,lint,tools-parallel,phpunit,phpdox" description=""/>
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
@@ -54,6 +54,13 @@
     <target name="composer" description="Updating composer dependencies">
         <exec executable="composer" failonerror="true">
             <arg value="update" />
+        </exec>
+    </target>
+    <!-- Run any DB schema updates --> 
+    <target name="dbupdate" depends="clean" description="Update Schema">
+        <exec executable="php" failonerror="true">
+            <arg value='${basedir}/artisan' />
+            <arg path="migrate" />
         </exec>
     </target>
     <target name="phploc" unless="phploc.done" description="Measure project size using PHPLOC and print human readable output. Intended for usage on the command line.">
