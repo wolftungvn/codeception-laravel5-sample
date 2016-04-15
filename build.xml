@@ -173,14 +173,22 @@
         </exec>
     </target>
 
-    <target name="phpunit" description="Run unit tests with PHPUnit">
-        <exec executable="phpunit" failonerror="true">
-            <arg value="-c" />
-            <arg value="${basedir}/phpunit.xml.dist" />
-            <arg value="--coverage-html" />
-            <arg value="${basedir}/build/coverage" />
+    <target name="codeception" description="Run Test By CodeCeption">
+        <echo>Running test by CodeCeption</echo>
+        <exec executable="codecept">
+            <arg value="run" />
+            <arg value="html" />
         </exec>
     </target>
+
+    <!--<target name="phpunit" description="Run unit tests with PHPUnit">-->
+        <!--<exec executable="phpunit" failonerror="true">-->
+            <!--<arg value="-c" />-->
+            <!--<arg value="${basedir}/phpunit.xml.dist" />-->
+            <!--<arg value="&#45;&#45;coverage-html" />-->
+            <!--<arg value="${basedir}/build/coverage" />-->
+        <!--</exec>-->
+    <!--</target>-->
 
     <target name="storage-permissions" depends="storage-permissions.unix,storage-permissions.windows" description="Setting storage permissions" />
 
