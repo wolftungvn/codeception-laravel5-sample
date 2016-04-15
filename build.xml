@@ -177,7 +177,7 @@
         <echo>Running test by CodeCeption</echo>
         <exec executable="codecept">
             <arg value="run" />
-            <arg value="html" />
+            <arg value="--html" />
         </exec>
     </target>
 
