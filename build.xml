@@ -214,6 +214,11 @@
         </condition>
     </target>
 
+    <target name="copy.env.production" description="Copy .env file to run">
+        <echo>Copying .env.production to .env</echo>
+        <copy file="${basedir}/.env.production" tofile="${basedir}/.env" overwrite="false" />
+    </target>
+
     <target name="prepare" depends="clean-build" description="Prepare for build">
         <echo>Making the build artifact folders</echo>
         <mkdir dir="${basedir}/build/api" />
