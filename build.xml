@@ -8,7 +8,7 @@
      <property name="toolsdir" value="${basedir}/vendor/bin/"/>
     -->
     <target name="build" depends="composer,prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
-    <target name="build-parallel" depends="composer,prepare,lint,tools-parallel,phpunit,phpdox" description=""/>
+    <!--<target name="build-parallel" depends="composer,prepare,lint,tools-parallel,phpunit,phpdox" description=""/>
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
             <sequential>
@@ -20,6 +20,7 @@
             <antcall target="phploc-ci"/>
         </parallel>
     </target>
+    -->
     <target name="clean" unless="clean.done" description="Cleanup build artifacts">
         <delete dir="${basedir}/build/api"/>
         <delete dir="${basedir}/build/coverage"/>
