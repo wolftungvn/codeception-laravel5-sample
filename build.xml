@@ -3,7 +3,7 @@
 <project name="codeception-laravel5-sample" default="build" basedir=".">
 
     <target name="build"
-            depends="build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb" />
+            depends="build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb,codeception" />
 
     <target name="build-clean"
             depends="clean,build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb" />
