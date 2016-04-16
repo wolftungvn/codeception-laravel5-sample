@@ -177,6 +177,8 @@
         <echo>Running test by CodeCeption</echo>
         <exec executable="codecept">
             <arg value="run" />
+            <arg value="--xml" />
+            <arg path="${basedir}/build/test-report.xml" />
             <arg value="--coverage-html" />
             <arg path="${basedir}/build/coverage" />
         </exec>
