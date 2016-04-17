@@ -141,4 +141,9 @@ class HomeController extends Controller
         return 'Multiple wildcards route';
     }
 
+    public function sayHelloForTicket()
+    {
+        return 'say hello for ticket 1';
+    }
+
 }
