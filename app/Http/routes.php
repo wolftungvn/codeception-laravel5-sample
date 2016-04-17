@@ -29,6 +29,7 @@ Route::get('special-characters', 'HomeController@specialCharacters');
 Route::get('fire-event', 'HomeController@fireEvent');
 Route::get('validation', 'HomeController@validation');
 Route::match(['get', 'post'], 'form', 'HomeController@form');
+Route::get('say-hello', 'HomeController@sayHelloForTicket');
 
 Route::resource('posts', 'PostsController');
 Route::resource('api/posts', 'Api\PostsController');
