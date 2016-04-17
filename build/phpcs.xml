@@ -1,188 +1,202 @@
 <?xml version="1.0"?>
-<ruleset name="Custom Standard">
+<ruleset name="PSR2">
+ <description>The PSR-2 coding standard.</description>
+ <arg name="tab-width" value="4"/>
 
-    <!--
-       The name attribute of the ruleset tag is displayed
-       when running PHP_CodeSniffer with the -v command line
-       argument. The description tag below is not displayed anywhere
-       except in this file, so it can contain information for
-       developers who may change this file in the future.
-    -->
-    <description>A custom coding standard</description>
+ <!-- 2. General -->
 
-    <!--
-       You can hard-code ignore patterns directly into your
-       custom standard so you don't have to specify the
-       patterns on the command line.
-       The following two tags are equivalent to the command line
-       argument: - - ignore=*/tests/*,*/data/*
-    -->
-    <exclude-pattern>*/tests/*</exclude-pattern>
-    <exclude-pattern>*/data/*</exclude-pattern>
+ <!-- 2.1 Basic Coding Standard -->
 
-    <!--
-       Include all sniffs in the PEAR standard. Note that the
-       path to the standard does not have to be specified as the
-       PEAR standard exists inside the PHP_CodeSniffer install
-       directory.
-    -->
-    <rule ref="PEAR"/>
+ <!-- Include the whole PSR-1 standard -->
+ <rule ref="PSR1"/>
 
-    <!--
-       Include all sniffs in an external standard directory. Note
-       that we have to specify the full path to the standard's
-       directory because it does not exist inside the PHP_CodeSniffer
-       install directory.
-    -->
-    <!--<rule ref="/home/username/standards/mystandard"/>-->
+ <!-- 2.2 Files -->
 
-    <!--
-       Include everything in another ruleset.xml file. This is
-       really handy if you want to customise another developer's
-       custom standard. They just need to distribute their single
-       ruleset file to allow this.
-    -->
-    <!--<rule ref="/home/username/standards/custom.xml"/>-->
+ <!-- All PHP files MUST use the Unix LF (linefeed) line ending. -->
+ <rule ref="Generic.Files.LineEndings">
+  <properties>
+   <property name="eolChar" value="\n"/>
+  </properties>
+ </rule>
 
-    <!--
-       Include all sniffs in the Squiz standard except one. Note that
-       the name of the sniff being excluded is the code that the sniff
-       is given by PHP_CodeSniffer and is based on the file name and
-       path of the sniff class. You can display these codes using the
-       -s command line argument when checking a file.
-    -->
-    <rule ref="Squiz">
-        <exclude name="Squiz.PHP.CommentedOutCode"/>
-    </rule>
+ <!-- All PHP files MUST end with a single blank line. -->
+ <!-- checked in Files/EndFileNewlineSniff -->
 
-    <!--
-       Include some specific sniffs from the Generic standard.
-       Note again that the name of the sniff is the code that
-       PHP_CodeSniffer gives it.
-    -->
-    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
-    <rule ref="Generic.Commenting.Todo"/>
-    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+ <!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
+ <!-- checked in Files/ClosingTagSniff -->
 
-    <!--
-       Here we are including a specific sniff but also changing
-       the error message of a specific message inside the sniff.
-       Note that the specific code for the message, which is
-       CommentFound in this case, is defined by the sniff developer.
-       You can display these codes by using the -s command line
-       argument when checking a file.
-       Also note that this message has a variable inside it,
-       which is why it is important that sniffs use a printf style
-       format for their error messages.
-       We also drop the severity of this message from the
-       default value (5) so that it is hidden by default. It can be
-       displayed by setting the minimum severity on the PHP_CodeSniffer
-       command line. This is great if you want to use some messages
-       only in code reviews and not have them block code commits.
-    -->
-    <rule ref="Generic.Commenting.Todo.CommentFound">
-        <message>Please review this TODO comment: %s</message>
-        <severity>3</severity>
-    </rule>
+ <!-- 2.3 Lines -->
 
-    <!--
-       Here we change two messages from the same sniff. Note how the
-       codes are slightly different because the sniff developer has
-       defined both a MaxExceeded message and a TooLong message. In the
-       case of this sniff, one is used for warnings and one is used
-       for errors.
-    -->
-    <rule ref="Generic.Files.LineLength.MaxExceeded">
-        <message>Line contains %s chars, which is longer than the max limit of %s</message>
-    </rule>
-    <rule ref="Generic.Files.LineLength.TooLong">
-        <message>Line longer than %s characters; contains %s characters</message>
-    </rule>
+ <!-- The soft limit on line length MUST be 120 characters; automated style checkers MUST warn but MUST NOT error at the soft limit. -->
+ <rule ref="Generic.Files.LineLength">
+  <properties>
+   <property name="lineLimit" value="120"/>
+   <property name="absoluteLineLimit" value="0"/>
+  </properties>
+ </rule>
 
-    <!--
-       Some sniffs have public member vars that allow you to
-       customise specific elements of the sniff. In the case of
-       the Generic LineLength sniff, you can customise the limit
-       at which the sniff will throw warnings and the limit at
-       which it will throw errors.
-       The rule below includes the LineLength sniff but changes the
-       settings so the sniff will show warnings for any line longer
-       than 90 chars and errors for any line longer than 100 chars.
-    -->
-    <rule ref="Generic.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="90"/>
-            <property name="absoluteLineLimit" value="100"/>
-        </properties>
-    </rule>
+ <!-- There MUST NOT be trailing whitespace at the end of non-blank lines. -->
+ <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+  <properties>
+   <property name="ignoreBlankLines" value="true"/>
+  </properties>
+ </rule>
+ <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.StartFile">
+  <severity>0</severity>
+ </rule>
+ <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EndFile">
+  <severity>0</severity>
+ </rule>
+ <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
+  <severity>0</severity>
+ </rule>
 
-    <!--
-       Another useful example of changing sniff settings is
-       to specify the end of line character that your standard
-       should check for.
-    -->
-    <rule ref="Generic.Files.LineEndings">
-        <properties>
-            <property name="eolChar" value="\r\n"/>
-        </properties>
-    </rule>
+ <!-- There MUST NOT be more than one statement per line. -->
+ <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
 
-    <!--
-       Boolean values should be specified by using the strings
-       "true" and "false" rather than the integers 0 and 1.
-    -->
-    <rule ref="Generic.Formatting.MultipleStatementAlignment">
-        <properties>
-            <property name="maxPadding" value="8"/>
-            <property name="ignoreMultiLine" value="true"/>
-            <property name="error" value="true"/>
-        </properties>
-    </rule>
+ <!-- 2.4 Indenting -->
 
-    <!--
-       If you want to completely disable an error message in a sniff
-       but you don't want to exclude the whole sniff, you can
-       change the severity of the message to 0. In this case, we
-       want the Squiz DoubleQuoteUsage sniff to be included in our
-       standard, but we don't want the ContainsVar error message to
-       ever be displayed.
-    -->
-    <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
-        <severity>0</severity>
-    </rule>
+ <!-- Code MUST use an indent of 4 spaces, and MUST NOT use tabs for indenting. -->
+ <rule ref="Generic.WhiteSpace.ScopeIndent">
+  <properties>
+   <property name="ignoreIndentationTokens" type="array" value="T_COMMENT,T_DOC_COMMENT_OPEN_TAG"/>
+  </properties>
+ </rule>
+ <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
 
-    <!--
-       There is a special internal error message produced by PHP_CodeSniffer
-       when it is unable to detect code in a file, possible due to
-       the use of short open tags even though php.ini disables them.
-       You can disable this message in the same way as sniff messages.
-       Again, the code here will be displayed in the PHP_CodeSniffer
-       output when using the -s command line argument while checking a file.
-    -->
-    <rule ref="Internal.NoCodeFound">
-        <severity>0</severity>
-    </rule>
+ <!-- 2.5 Keywords and True/False/Null -->
 
-    <!--
-       You can also hard-code ignore patterns for specific sniffs,
-       a feature not available on the command line.
-       The code here will hide all messages from the Squiz DoubleQuoteUsage
-       sniff for files that match either of the two exclude patterns.
-    -->
-    <rule ref="Squiz.Strings.DoubleQuoteUsage">
-        <exclude-pattern>*/tests/*</exclude-pattern>
-        <exclude-pattern>*/data/*</exclude-pattern>
-    </rule>
+ <!-- PHP keywords MUST be in lower case. -->
+ <rule ref="Generic.PHP.LowerCaseKeyword"/>
 
-    <!--
-       You can also be more specific and just exclude some messages.
-       The code here will just hide the ContainsVar error generated by the
-       Squiz DoubleQuoteUsage sniff for files that match either of the two
-       exclude patterns.
-    -->
-    <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
-        <exclude-pattern>*/tests/*</exclude-pattern>
-        <exclude-pattern>*/data/*</exclude-pattern>
-    </rule>
+ <!-- The PHP constants true, false, and null MUST be in lower case. -->
+ <rule ref="Generic.PHP.LowerCaseConstant"/>
 
+ <!-- 3. Namespace and Use Declarations -->
+
+ <!-- When present, there MUST be one blank line after the namespace declaration. -->
+ <!-- checked in Namespaces/NamespaceDeclarationSniff -->
+
+ <!-- When present, all use declarations MUST go after the namespace declaration.
+      There MUST be one use keyword per declaration.
+      There MUST be one blank line after the use block. -->
+ <!-- checked in Namespaces/UseDeclarationSniff -->
+
+ <!-- 4. Classes, Properties, and Methods -->
+
+ <!-- 4.1. Extends and Implements -->
+
+ <!-- The extends and implements keywords MUST be declared on the same line as the class name.
+      The opening brace for the class go MUST go on its own line; the closing brace for the class MUST go on the next line after the body.
+      Lists of implements MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one interface per line. -->
+ <!-- checked in Classes/ClassDeclarationSniff -->
+
+ <!-- 4.2. Properties -->
+
+ <!-- Visibility MUST be declared on all properties.
+      The var keyword MUST NOT be used to declare a property.
+      There MUST NOT be more than one property declared per statement.
+      Property names SHOULD NOT be prefixed with a single underscore to indicate protected or private visibility. -->
+ <!-- checked in Classes/PropertyDeclarationSniff -->
+
+ <!-- 4.3 Methods -->
+
+ <!-- Visibility MUST be declared on all methods. -->
+ <rule ref="Squiz.Scope.MethodScope"/>
+ <rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
+
+ <!-- Method names SHOULD NOT be prefixed with a single underscore to indicate protected or private visibility. -->
+ <!-- checked in Methods/MethodDeclarationSniff -->
+
+ <!-- Method names MUST NOT be declared with a space after the method name. The opening brace MUST go on its own line, and the closing brace MUST go on the next line following the body. There MUST NOT be a space after the opening parenthesis, and there MUST NOT be a space before the closing parenthesis. -->
+ <rule ref="Squiz.Functions.FunctionDeclaration"/>
+ <rule ref="Squiz.Functions.LowercaseFunctionKeywords"/>
+
+ <!-- 4.4 Method Arguments -->
+
+ <!-- In the argument list, there MUST NOT be a space before each comma, and there MUST be one space after each comma. -->
+ <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+  <properties>
+   <property name="equalsSpacing" value="1"/>
+  </properties>
+ </rule>
+ <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterHint">
+  <severity>0</severity>
+ </rule>
+
+ <!-- Method arguments with default values MUST go at the end of the argument list. -->
+ <rule ref="PEAR.Functions.ValidDefaultValue"/>
+
+ <!-- Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line. When the argument list is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them. -->
+ <rule ref="Squiz.Functions.MultiLineFunctionDeclaration"/>
+
+ <!-- 4.5 abstract, final, and static -->
+
+ <!-- When present, the abstract and final declarations MUST precede the visibility declaration.
+      When present, the static declaration MUST come after the visibility declaration. -->
+ <!-- checked in Methods/MethodDeclarationSniff -->
+
+ <!-- 4.6 Method and Function Calls -->
+
+ <!-- When making a method or function call, there MUST NOT be a space between the method or function name and the opening parenthesis, there MUST NOT be a space after the opening parenthesis, and there MUST NOT be a space before the closing parenthesis. In the argument list, there MUST NOT be a space before each comma, and there MUST be one space after each comma.
+ Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line. -->
+ <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+ <rule ref="PSR2.Methods.FunctionCallSignature.SpaceAfterCloseBracket">
+  <severity>0</severity>
+ </rule>
+
+ <!-- 5. Control Structures -->
+
+ <!-- The general style rules for control structures are as follows:
+ There MUST be one space after the control structure keyword
+ There MUST NOT be a space after the opening parenthesis
+ There MUST NOT be a space before the closing parenthesis
+ There MUST be one space between the closing parenthesis and the opening brace
+ The structure body MUST be indented once
+ The closing brace MUST be on the next line after the body -->
+ <rule ref="Squiz.ControlStructures.ControlSignature"/>
+ <rule ref="Squiz.WhiteSpace.ControlStructureSpacing" />
+ <!--
+    When 3.0 is released, change this to:
+    <rule ref="Squiz.WhiteSpace.ControlStructureSpacing.SpacingAfterOpen" />
+    <rule ref="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose" />
+ -->
+ <rule ref="Squiz.WhiteSpace.ControlStructureSpacing.SpaceBeforeCloseBrace">
+  <severity>0</severity>
+ </rule>
+ <rule ref="Squiz.WhiteSpace.ControlStructureSpacing.LineAfterClose">
+  <severity>0</severity>
+ </rule>
+ <rule ref="Squiz.WhiteSpace.ControlStructureSpacing.NoLineAfterClose">
+  <severity>0</severity>
+ </rule>
+ <rule ref="Squiz.WhiteSpace.ScopeClosingBrace"/>
+ <rule ref="Squiz.ControlStructures.ForEachLoopDeclaration"/>
+ <rule ref="Squiz.ControlStructures.ForLoopDeclaration"/>
+ <rule ref="Squiz.ControlStructures.LowercaseDeclaration"/>
+ <!-- checked in ControlStructures/ControlStructureSpacingSniff -->
+
+ <!-- The body of each structure MUST be enclosed by braces. This standardizes how the structures look, and reduces the likelihood of introducing errors as new lines get added to the body. -->
+ <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+
+ <!-- 5.1. if, elseif, else -->
+
+ <!-- The keyword elseif SHOULD be used instead of else if so that all control keywords look like single words. -->
+ <!-- checked in ControlStructures/ElseIfDeclarationSniff -->
+
+ <!-- 5.2. switch, case -->
+
+ <!-- The case statement MUST be indented once from switch, and the break keyword (or other terminating keyword) MUST be indented at the same level as the case body. There MUST be a comment such as // no break when fall-through is intentional in a non-empty case body. -->
+ <!-- checked in ControlStructures/SwitchDeclarationSniff -->
+
+ <!-- 6. Closures -->
+
+ <!-- Closures MUST be declared with a space after the function keyword, and a space before and after the use keyword.
+ The opening brace MUST go on the same line, and the closing brace MUST go on the next line following the body.
+ There MUST NOT be a space after the opening parenthesis of the argument list or variable list, and there MUST NOT be a space before the closing parenthesis of the argument list or variable list.
+ In the argument list and variable list, there MUST NOT be a space before each comma, and there MUST be one space after each comma.
+ Closure arguments with default values MUST go at the end of the argument list.
+ Argument lists and variable lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument or variable per line.
+ When the ending list (whether or arguments or variables) is split across multiple lines, the closing parenthesis and opening brace MUST be placed together on their own line with one space between them. -->
+ <!-- checked in Squiz.Functions.MultiLineFunctionDeclaration -->
 </ruleset>
