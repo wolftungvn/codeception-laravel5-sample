@@ -4,7 +4,8 @@ use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Post;
 
-class PostsController extends Controller {
+class PostsController extends Controller
+{
 
     /**
      * @var Post
@@ -17,7 +18,7 @@ class PostsController extends Controller {
      *
      * @param Post $post
      */
-    public function  __construct(Post $post)
+    public function __construct(Post $post)
     {
         $this->post = $post;
     }

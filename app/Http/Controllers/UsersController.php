@@ -3,7 +3,8 @@
 use App\User;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
     /**
      * User Repository
@@ -24,7 +25,7 @@ class UsersController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($id)
@@ -37,7 +38,7 @@ class UsersController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)

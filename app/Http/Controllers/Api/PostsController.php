@@ -7,7 +7,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
 
-class PostsController extends Controller {
+class PostsController extends Controller
+{
 
     /**
      * @var Post
@@ -60,7 +61,7 @@ class PostsController extends Controller {
     /**
      * Display the specified post.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return JsonResponse
      */
     public function show($id)
@@ -74,7 +75,7 @@ class PostsController extends Controller {
     /**
      * Update the specified post.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return JsonResponse
      */
     public function update(Request $request, $id)
@@ -89,7 +90,7 @@ class PostsController extends Controller {
     /**
      * Delete the specified post.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return JsonResponse
      */
     public function destroy($id)
