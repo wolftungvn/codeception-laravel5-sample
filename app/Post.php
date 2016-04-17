@@ -8,4 +8,4 @@ class Post extends Eloquent
     protected $fillable = ['title', 'body'];
     protected $hidden = ['created_at', 'updated_at'];
 
-} 
+}

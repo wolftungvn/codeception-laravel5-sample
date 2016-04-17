@@ -15,7 +15,8 @@ Route::get('', ['domain' => 'example.com', 'as' => 'domain', 'uses' => 'HomeCont
 Route::get('', ['domain' => 'subdomain.example.com', 'as' => 'subdomain', 'uses' => 'HomeController@subdomain']);
 Route::get('', ['domain' => '{w}.example.com', 'as' => 'wildcard', 'uses' => 'HomeController@wildcard']);
 Route::get('',
-    ['domain' => '{w1}.{w2}.example.com', 'as' => 'multiple-wildcards', 'uses' => 'HomeController@multipleWildcards']);
+    ['domain' => '{w1}.{w2}.example.com', 'as' => 'multiple-wildcards', 'uses' => 'HomeController@multipleWildcards']
+);
 
 Route::get('', ['as' => 'homepage', 'uses' => 'HomeController@index']);
 Route::get('flash', 'HomeController@flash');
@@ -36,4 +37,3 @@ Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
 ]);
-
