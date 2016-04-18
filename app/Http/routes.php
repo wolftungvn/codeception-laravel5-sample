@@ -30,6 +30,7 @@ Route::get('fire-event', 'HomeController@fireEvent');
 Route::get('validation', 'HomeController@validation');
 Route::match(['get', 'post'], 'form', 'HomeController@form');
 Route::get('say-hello', 'HomeController@sayHelloForTicket');
+Route::get('say-xin-chao', 'HomeController@sayHelloForTicket2');
 
 Route::resource('posts', 'PostsController');
 Route::resource('api/posts', 'Api\PostsController');

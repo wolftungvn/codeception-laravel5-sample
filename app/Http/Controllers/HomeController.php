@@ -146,4 +146,8 @@ class HomeController extends Controller
         return 'say hello for ticket 1';
     }
 
+    public function sayHelloForTicket2()
+    {
+        return 'say XIN CHAO for ticket 2';
+    }
 }
