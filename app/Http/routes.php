@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('', ['domain' => 'example.com', 'as' => 'domain', 'uses' => 'HomeController@domain']);
 Route::get('', ['domain' => 'subdomain.example.com', 'as' => 'subdomain', 'uses' => 'HomeController@subdomain']);
 Route::get('', ['domain' => '{w}.example.com', 'as' => 'wildcard', 'uses' => 'HomeController@wildcard']);

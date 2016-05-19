@@ -1,5 +1,11 @@
 <?php
-class ExampleTest extends TestCase {
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class ExampleTest extends TestCase
+{
     /**
      * A basic functional test example.
      *
@@ -7,7 +13,7 @@ class ExampleTest extends TestCase {
      */
     public function testBasicExample()
     {
-        $response = $this->call('GET', '/');
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->visit('/')
+             ->see('Hello world');
     }
 }
