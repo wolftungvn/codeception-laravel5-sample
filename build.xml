@@ -2,6 +2,8 @@
 
 <project name="codeception-laravel5-sample" default="build" basedir=".">
 
+    <property name="toolsdir" value="${basedir}/vendor/bin/"/>
+
     <target name="build"
             depends="build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb,phpunit" />
 
@@ -96,7 +98,7 @@
     </target>
 
     <target name="pdepend" description="Calculate software metrics using PHP_Depend">
-        <exec executable="pdepend">
+        <exec executable="${toolsdir}pdepend">
             <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
             <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
             <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
@@ -105,7 +107,7 @@
     </target>
 
     <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
-        <exec executable="phpcb">
+        <exec executable="${toolsdir}phpcb">
             <arg value="--log" />
             <arg path="${basedir}/build/logs" />
             <arg value="--source" />
@@ -116,7 +118,7 @@
     </target>
 
     <target name="phpcpd" description="Find duplicate code using PHPCPD">
-        <exec executable="phpcpd">
+        <exec executable="${toolsdir}phpcpd">
             <arg value="--log-pmd" />
             <arg value="${basedir}/build/logs/pmd-cpd.xml" />
             <arg path="${basedir}/app" />
@@ -125,14 +127,14 @@
 
     <target name="phpcs"
             description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="phpcs">
+        <exec executable="${toolsdir}phpcs">
             <arg value="--standard=${basedir}/build/phpcs.xml" />
             <arg path="${basedir}/app" />
         </exec>
     </target>
 
     <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
-        <exec executable="phpcs" output="/dev/null">
+        <exec executable="${toolsdir}phpcs" output="/dev/null">
             <arg value="--report=checkstyle" />
             <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
             <arg value="--standard=${basedir}/build/phpcs.xml" />
@@ -141,14 +143,14 @@
     </target>
 
     <target name="phpdox" description="Generate API documentation using phpDox">
-        <exec executable="phpdox">
+        <exec executable="${toolsdir}phpdox">
             <arg value="-f" />
             <arg value="${basedir}/build/phpdox.xml" />
         </exec>
     </target>
 
     <target name="phploc" description="Measure project size using PHPLOC">
-        <exec executable="phploc">
+        <exec executable="${toolsdir}phploc">
             <arg value="--log-csv" />
             <arg value="${basedir}/build/logs/phploc.csv" />
             <arg path="${basedir}/app" />
@@ -156,7 +158,7 @@
     </target>
 
     <target name="phpmd" description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="phpmd">
+        <exec executable="${toolsdir}phpmd">
             <arg path="${basedir}/app" />
             <arg value="text" />
             <arg value="${basedir}/build/phpmd.xml" />
@@ -164,7 +166,7 @@
     </target>
 
     <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-        <exec executable="phpmd">
+        <exec executable="${toolsdir}phpmd">
             <arg path="${basedir}/app" />
             <arg value="xml" />
             <arg value="${basedir}/build/phpmd.xml" />
@@ -175,7 +177,7 @@
 
     <target name="codeception" description="Run Test By CodeCeption">
         <echo>Running test by CodeCeption</echo>
-        <exec executable="codecept">
+        <exec executable="${toolsdir}codecept">
             <arg value="run" />
             <arg value="--xml" />
             <arg path="${basedir}/build/test-report.xml" />
