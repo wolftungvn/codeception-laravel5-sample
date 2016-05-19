@@ -3,7 +3,7 @@
 <project name="codeception-laravel5-sample" default="build" basedir=".">
 
     <target name="build"
-            depends="build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb,codeception" />
+            depends="build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb,phpunit" />
 
     <target name="build-clean"
             depends="clean,build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb" />
@@ -184,14 +184,19 @@
         </exec>
     </target>
 
-    <!--<target name="phpunit" description="Run unit tests with PHPUnit">-->
-        <!--<exec executable="phpunit" failonerror="true">-->
-            <!--<arg value="-c" />-->
-            <!--<arg value="${basedir}/phpunit.xml.dist" />-->
-            <!--<arg value="&#45;&#45;coverage-html" />-->
-            <!--<arg value="${basedir}/build/coverage" />-->
-        <!--</exec>-->
-    <!--</target>-->
+    <target name="phpunit" unless="phpunit.done" depends="prepare" description="Run unit tests with PHPUnit">
+        <exec executable="${toolsdir}phpunit" failonerror="true" taskname="phpunit">
+            <arg value="--configuration"/>
+            <arg path="${basedir}/phpunit.xml"/>
+            <arg value="--coverage-clover"/>
+            <arg path="${basedir}/build/logs/clover.xml"/>
+            <arg value="--coverage-crap4j"/>
+            <arg path="${basedir}/build/logs/crap4j.xml"/>
+            <arg value="--log-junit"/>
+            <arg path="${basedir}/build/logs/junit.xml"/>
+        </exec>
+        <property name="phpunit.done" value="true"/>
+    </target>
 
     <target name="storage-permissions" depends="storage-permissions.unix,storage-permissions.windows" description="Setting storage permissions" />
 
